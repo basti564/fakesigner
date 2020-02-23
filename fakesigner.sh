@@ -4,7 +4,7 @@ if [[ $EUID -eq 0 ]]; then
   echo "[!] Please don't run this script as root!"
   exit
 fi
-if [[ $(command -v brew) == "" ]]; then
+if [[ $(command -v sudo -u brew) == "" ]]; then
     echo "[!] Hombrew not installed!"
     echo "[!] Please run the following command!"
     echo '[!] /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
@@ -18,6 +18,11 @@ else
       echo "[!] Please install ldid with the following command"
       echo "[!] brew install ldid"
     fi
+fi
+if [ -z "$1" ]
+  then
+    echo "[!] No .ipa file supplied!"
+    exit
 fi
 
 ipa=$1
