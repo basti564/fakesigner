@@ -3,4 +3,4 @@ Automatically fakesign any .ipa file for use with [AppSync Unified](https://cydi
 ## usage
 Run ```path/to/fakesigner.sh path/to/app.ipa``` and the script will automatically create a fakesigned .ipa file called ```app.ipa-fakesigned.ipa```
 ## dependencies
-- [ldid](https://formulae.brew.sh/formula/ldid) from [Homeberew](https://brew.sh/)
+- [ldid](https://formulae.brew.sh/formula/ldid) from [Homebrew](https://brew.sh/)
