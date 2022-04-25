@@ -1,30 +1,35 @@
 #!/bin/bash
 echo "[*] Welcome to basti564's automatic fakesigner"
+
+# Ensure this command is not run from root
 if [[ $EUID -eq 0 ]]; then
   echo "[!] Please don't run this script as root!"
   exit
 fi
-if [[ $(command -v sudo -u brew) == "" ]]; then
-    echo "[!] Hombrew not installed!"
-    echo "[!] Please run the following command!"
-    echo '[!] /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-    exit
-else
-    echo "[§] Found Homebrew"
-    if brew ls --versions ldid > /dev/null; then
-      echo "[§] Found ldid"
+
+# Ensure ldid command exists
+if ! [ -x "$(command -v ldid)" ]; then
+    echo "[!] ldid not found!"
+    
+    if [[ $(command -v sudo -u brew) == "" ]]; then
+        echo "[!] Hombrew not installed!"
+        echo "[!] Please run the following command!"
+        echo '[!] /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+        exit
     else
-      echo "[!] ldid not found!"
-      echo "[!] Please install ldid with the following command"
-      echo "[!] brew install ldid"
+        echo "[+] Found Homebrew, installing ldid"
+        brew install ldid
     fi
 fi
+
+# Ensure an ipa file is supplied
 if [ -z "$1" ]
   then
     echo "[!] No .ipa file supplied!"
     exit
 fi
 
+# Start processing
 ipa=$1
 echo [*] unpacking..
 cd $(dirname $ipa)
